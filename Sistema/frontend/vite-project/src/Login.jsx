@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { Container, Row, Col } from "react-bootstrap";
+import Form from 'react-bootstrap/Form';
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState('');
@@ -34,32 +36,43 @@ export default function Login({ onLogin }) {
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '50px auto', fontFamily: 'Arial' }}>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: 12 }}>
-          <label>Email:</label><br />
-          <input 
-            type="email" 
-            value={email} 
-            onChange={e => setEmail(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: 8 }} 
-          />
-        </div>
-        <div style={{ marginBottom: 12 }}>
-          <label>Senha:</label><br />
-          <input 
-            type="password" 
-            value={senha} 
-            onChange={e => setSenha(e.target.value)} 
-            required 
-            style={{ width: '100%', padding: 8 }} 
-          />
-        </div>
-        {erro && <p style={{ color: 'red' }}>{erro}</p>}
-        <button type="submit" style={{ padding: '10px 20px' }}>Entrar</button>
-      </form>
-    </div>
+    <Container>
+        <Row>
+            <div style={{ width:'400px', margin: '50px auto', fontFamily: 'Arial' }}>
+                <Col md={12}>
+                    <h2>Login</h2>
+                </Col>
+                <Col md={12}>
+                    <form onSubmit={handleSubmit}>
+                        <div className="input-control" style={{ marginBottom: 12 }}>
+                        <label>Email:</label><br />
+                        <Form.Control 
+                            value={email} 
+                            onChange={e => setEmail(e.target.value)} 
+                            required 
+                            style={{ width: '100%', padding: 8 }} 
+                        />
+                        </div>
+                        <div style={{ marginBottom: 12 }}>
+                        <label>Senha:</label><br />
+                        <Form.Control 
+                            type="password" 
+                            value={senha} 
+                            onChange={e => setSenha(e.target.value)} 
+                            required 
+                            style={{ width: '100%', padding: 8 }} 
+                        />
+                        </div>
+                        {erro && <p style={{ color: 'red' }}>{erro}</p>}
+                        <Row>   
+                            <Col className="text-end" md={12}>
+                                <button className='bg-dark text-white' type="submit" style={{ padding: '10px 20px' }}>Entrar</button>
+                            </Col>
+                        </Row>
+                    </form>
+                </Col>
+            </div>
+        </Row>
+    </Container>
   );
 }

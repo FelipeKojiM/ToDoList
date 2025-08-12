@@ -9,8 +9,8 @@ app.use(express.json());
 
 // Usuários fictícios
 const usuarios = [
-  { id: 1, email: 'admin@teste.com', senha: '123456', tipo: 'admin' },
-  { id: 2, email: 'user@teste.com', senha: '123456', tipo: 'usuario' }
+  { id: 1, email: 'admin', senha: '123', tipo: 'admin' },
+  { id: 2, email: 'user', senha: '123', tipo: 'usuario' }
 ];
 
 // Rota de teste

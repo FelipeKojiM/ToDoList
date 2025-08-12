@@ -1,8 +1,21 @@
 import { useState, useEffect } from 'react';
 import Login from './Login';
+import { Container, Row, Col } from "react-bootstrap";
+import Header from './components/Header';
 
 function AdminArea() {
-  return <h1>Área do Admin 🚀</h1>;
+  return (
+    <Container>
+      <Row>
+        <Col md={6} className="bg-primary text-white">
+          Coluna 1
+        </Col>
+        <Col md={6} className="bg-secondary text-white">
+          Coluna 2
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
 function UserArea() {
@@ -30,11 +43,14 @@ function App() {
   }
 
   return (
-    <div style={{ padding: 20, fontFamily: 'Arial' }}>
-      <button onClick={handleLogout} style={{ marginBottom: 20 }}>Sair</button>
+    <div>
+      <Header />  
+      <div style={{ padding: 20, fontFamily: 'Arial' }}>
+        <button className='bg-dark text-white' onClick={handleLogout} style={{ marginBottom: 20 }}>Sair</button>
 
-      {tipo === 'admin' && <AdminArea />}
-      {tipo === 'usuario' && <UserArea />}
+        {tipo === 'admin' && <AdminArea />}
+        {tipo === 'usuario' && <UserArea />}
+      </div>
     </div>
   );
 }
