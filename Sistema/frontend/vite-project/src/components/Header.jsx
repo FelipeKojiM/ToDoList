@@ -1,4 +1,10 @@
-export default function Header() {
+import { DropdownButton, Dropdown } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
+export default function Header({ onLogout, onOpenModal }) {
+  
+  const navigate = useNavigate();
+
   return (
     <header style={{
       position: 'fixed',
@@ -15,7 +21,19 @@ export default function Header() {
       alignItems: 'center',
       boxShadow: '0 2px 5px rgba(0,0,0,0.3)'
     }}>
-      Meu Projeto ToDoList
+      <DropdownButton
+        style={{ marginLeft: 'auto' }}
+        title="Menu"
+        id="dropdown-menu-align-end"
+        variant="dark"
+        menuVariant="dark"
+      >
+        <Dropdown.Item onClick={() => navigate("/")}>Home</Dropdown.Item>
+        <Dropdown.Item onClick={() => navigate("/profile")}>Profile</Dropdown.Item>
+        <Dropdown.Item onClick={onOpenModal}>Cadastro</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
+      </DropdownButton>
     </header>
   );
 }

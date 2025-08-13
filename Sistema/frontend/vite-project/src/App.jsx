@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import Login from './Login';
+import Login from './pages/Login';
 import { Container, Row, Col } from "react-bootstrap";
 import Header from './components/Header';
+import ModalCustom from './components/Modal';
 
 function AdminArea() {
   return (
@@ -24,6 +25,9 @@ function UserArea() {
 
 function App() {
   const [tipo, setTipo] = useState(localStorage.getItem('tipo') || null);
+  const [showModal, setShowModal] = useState(false);
+  const handleShowModal = () => setShowModal(true);
+  const handleCloseModal = () => setShowModal(false);
 
   const handleLogin = (tipoUsuario) => {
     setTipo(tipoUsuario);
@@ -44,9 +48,10 @@ function App() {
 
   return (
     <div>
-      <Header />  
+      <Header onLogout={handleLogout} onOpenModal={handleShowModal} />
+      <ModalCustom show={showModal} onHide={handleCloseModal} />
+
       <div style={{ padding: 20, fontFamily: 'Arial' }}>
-        <button className='bg-dark text-white' onClick={handleLogout} style={{ marginBottom: 20 }}>Sair</button>
 
         {tipo === 'admin' && <AdminArea />}
         {tipo === 'usuario' && <UserArea />}

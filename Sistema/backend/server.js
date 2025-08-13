@@ -18,6 +18,11 @@ app.get('/api', (req, res) => {
   res.json({ mensagem: 'Backend funcionando!' });
 });
 
+app.get('/logout', (req, res) => {
+  // Dados fictícios para enviar de volta ao frontend
+  res.json({ message: "Requisição bem-sucedida!" });
+});
+
 // Rota de login
 app.post('/login', (req, res) => {
   const { email, senha } = req.body;
