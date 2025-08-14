@@ -1,8 +1,7 @@
 import { DropdownButton, Dropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ onLogout, onOpenModal }) {
-  
+export default function Header({ onLogout, onOpenModal, onAdmin }) {
   const navigate = useNavigate();
 
   return (
@@ -30,7 +29,7 @@ export default function Header({ onLogout, onOpenModal }) {
       >
         <Dropdown.Item onClick={() => navigate("/")}>Home</Dropdown.Item>
         <Dropdown.Item onClick={() => navigate("/profile")}>Profile</Dropdown.Item>
-        <Dropdown.Item onClick={onOpenModal}>Cadastro</Dropdown.Item>
+        {onAdmin == 1 && (<Dropdown.Item onClick={onOpenModal}>Cadastro</Dropdown.Item>)}
         <Dropdown.Divider />
         <Dropdown.Item onClick={onLogout}>Logout</Dropdown.Item>
       </DropdownButton>
