@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { Container, Row, Col } from "react-bootstrap";
-import Form from 'react-bootstrap/Form';
+import { Container, Row, Col, Form } from "react-bootstrap";
 
 export default function Login({ onLogin }) {
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
+  const [login_usuarios, setEmail] = useState('');
+  const [senha_usuarios, setSenha] = useState('');
   const [erro, setErro] = useState('');
 
   const handleSubmit = async (e) => {
@@ -12,25 +11,27 @@ export default function Login({ onLogin }) {
     setErro('');
 
     try {
-      const res = await fetch('http://localhost:5000/login', {
+      const res = await fetch('http://localhost:5000/usuarios/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, senha }),
+        body: JSON.stringify({ login_usuarios, senha_usuarios }),        
       });
 
       const data = await res.json();
 
       if (!res.ok) {
-        setErro(data.erro || 'Erro no login');
+        setErro(data.error);
         return;
       }
+
+      console.log(data);
 
       // Salva no localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('tipo', data.tipo);
 
       // Passa tipo para o App
-      onLogin(data.usuario.adm_usuarios);
+      onLogin(data.adm_usuarios);
 
     } catch (error) {
       setErro('Erro ao conectar com o servidor');
@@ -42,16 +43,16 @@ export default function Login({ onLogin }) {
     <Container>
       <Row>
         <div style={{ width:'400px', margin: '50px auto', fontFamily: 'Arial' }}>
-          <Col md={12}><h2>Login</h2></Col>
+          <Col md={12}><h2>Bem-Vindo</h2></Col>
           <Col md={12}>
             <form onSubmit={handleSubmit}>
               <div style={{ marginBottom: 12 }}>
-                <label>Email:</label><br />
-                <Form.Control value={email} onChange={e => setEmail(e.target.value)} required style={{ width: '100%', padding: 8 }} />
+                <label>Login:</label><br />
+                <Form.Control value={login_usuarios} onChange={e => setEmail(e.target.value)} required style={{ width: '100%', padding: 8 }} />
               </div>
               <div style={{ marginBottom: 12 }}>
                 <label>Senha:</label><br />
-                <Form.Control type="password" value={senha} onChange={e => setSenha(e.target.value)} required style={{ width: '100%', padding: 8 }} />
+                <Form.Control type="password" value={senha_usuarios} onChange={e => setSenha(e.target.value)} required style={{ width: '100%', padding: 8 }} />
               </div>
               {erro && <p style={{ color: 'red' }}>{erro}</p>}
               <Row>
